@@ -441,7 +441,7 @@ endif()
 # |                                      JNI                                   |
 # ------------------------------------------------------------------------------
 
-if(ZTS_ENABLE_JAVA OR BUILD_ANDROID)
+if(ZTS_ENABLE_JAVA)
     message(STATUS "Looking for JNI")
 
     if(BUILD_WIN)
