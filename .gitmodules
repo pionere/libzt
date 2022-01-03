@@ -6,4 +6,4 @@
 	url = https://github.com/joseph-henry/lwip.git
 [submodule "ext/lwip-contrib"]
 	path = ext/lwip-contrib
-	url = https://github.com/joseph-henry/lwip-contrib.git
+	url = https://github.com/diasurgical/lwip-contrib.git
