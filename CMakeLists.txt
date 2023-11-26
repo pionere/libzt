@@ -775,15 +775,19 @@ endif()
 
 if (ALLOW_INSTALL_TARGET)
     set(PUBLIC_ZT_HEADERS ${PROJECT_SOURCE_DIR}/include/ZeroTierSockets.h)
-    set_target_properties(${STATIC_LIB_NAME} PROPERTIES PUBLIC_HEADER
-        "${PUBLIC_ZT_HEADERS}")
-    install(
-        TARGETS ${STATIC_LIB_NAME}
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        PUBLIC_HEADER DESTINATION include)
-    install(
-        TARGETS ${DYNAMIC_LIB_NAME}
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
+    if(BUILD_STATIC_LIB)
+      set_target_properties(${STATIC_LIB_NAME} PROPERTIES PUBLIC_HEADER
+          "${PUBLIC_ZT_HEADERS}")
+      install(
+          TARGETS ${STATIC_LIB_NAME}
+          LIBRARY DESTINATION lib
+          ARCHIVE DESTINATION lib
+          PUBLIC_HEADER DESTINATION include)
+    endif()
+    if(BUILD_SHARED_LIB)
+      install(
+          TARGETS ${DYNAMIC_LIB_NAME}
+          LIBRARY DESTINATION lib
+          ARCHIVE DESTINATION lib)
+    endif()
 endif()
