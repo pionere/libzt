@@ -239,7 +239,7 @@ int zts_addr_compute_rfc4193_str(uint64_t net_id, uint64_t node_id, char* dst, u
     }
     struct zts_sockaddr_storage ss;
     int err = ZTS_ERR_OK;
-    if ((err = zts_addr_compute_rfc4193(net_id, node_id, &ss)) != ZTS_ERR_OK) {
+    if ((err = ZeroTier::zts_addr_compute_rfc4193(net_id, node_id, &ss)) != ZTS_ERR_OK) {
         return err;
     }
     struct zts_sockaddr_in6* in6 = (struct zts_sockaddr_in6*)&ss;
@@ -254,7 +254,7 @@ int zts_addr_compute_6plane_str(uint64_t net_id, uint64_t node_id, char* dst, un
     }
     struct zts_sockaddr_storage ss;
     int err = ZTS_ERR_OK;
-    if ((err = zts_addr_compute_6plane(net_id, node_id, &ss)) != ZTS_ERR_OK) {
+    if ((err = ZeroTier::zts_addr_compute_6plane(net_id, node_id, &ss)) != ZTS_ERR_OK) {
         return err;
     }
     struct zts_sockaddr_in6* in6 = (struct zts_sockaddr_in6*)&ss;
@@ -354,7 +354,7 @@ int zts_addr_get_str(uint64_t net_id, unsigned int family, char* dst, unsigned i
     if (family == ZTS_AF_INET) {
         struct zts_sockaddr_storage ss;
         int err = ZTS_ERR_OK;
-        if ((err = zts_addr_get(net_id, family, &ss)) != ZTS_ERR_OK) {
+        if ((err = ZeroTier::zts_addr_get(net_id, family, &ss)) != ZTS_ERR_OK) {
             return err;
         }
         struct zts_sockaddr_in* in4 = (struct zts_sockaddr_in*)&ss;
@@ -363,7 +363,7 @@ int zts_addr_get_str(uint64_t net_id, unsigned int family, char* dst, unsigned i
     if (family == ZTS_AF_INET6) {
         struct zts_sockaddr_storage ss;
         int err = ZTS_ERR_OK;
-        if ((err = zts_addr_get(net_id, family, &ss)) != ZTS_ERR_OK) {
+        if ((err = ZeroTier::zts_addr_get(net_id, family, &ss)) != ZTS_ERR_OK) {
             return err;
         }
         struct zts_sockaddr_in6* in6 = (struct zts_sockaddr_in6*)&ss;
