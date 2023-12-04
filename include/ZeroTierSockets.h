@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c)2013-2021 ZeroTier, Inc.
  *
  * Use of this software is governed by the Business Source License included
@@ -1010,7 +1010,7 @@ typedef struct {
 // ZeroTier Service and Network Controls                                      //
 //----------------------------------------------------------------------------//
 
-#if defined(_WIN32)
+#if defined(_WIN32) && !defined(BUILD_STATIC)
 #ifdef ADD_EXPORTS
 #define ZTS_API __declspec(dllexport)
 #else
