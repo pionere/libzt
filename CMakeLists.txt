@@ -231,6 +231,10 @@ if(BUILD_IOS_FRAMEWORK)
     endif()
 endif()
 
+if(IOS)
+    include_directories(${PROJ_DIR}/osdep/include)
+endif()
+
 # ------------------------------------------------------------------------------
 # |                      TESTING (and) FEATURE FLAGS                           |
 # ------------------------------------------------------------------------------
