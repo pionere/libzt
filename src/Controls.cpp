@@ -453,12 +453,12 @@ ZTS_API int ZTCALL zts_net_get_mac_str(uint64_t net_id, char* dst, unsigned int 
         dst,
         ZTS_MAC_ADDRSTRLEN,
         "%x:%x:%x:%x:%x:%x",
-        (mac >> 40) & 0xFF,
-        (mac >> 32) & 0xFF,
-        (mac >> 24) & 0xFF,
-        (mac >> 16) & 0xFF,
-        (mac >> 8) & 0xFF,
-        (mac >> 0) & 0xFF);
+        (unsigned)(mac >> 40) & 0xFF,
+        (unsigned)(mac >> 32) & 0xFF,
+        (unsigned)(mac >> 24) & 0xFF,
+        (unsigned)(mac >> 16) & 0xFF,
+        (unsigned)(mac >> 8) & 0xFF,
+        (unsigned)(mac >> 0) & 0xFF);
     return ZTS_ERR_OK;
 }
 
