@@ -1073,7 +1073,8 @@ int NodeService::getRouteAtIdx(
     }
     // TODO: check if inet_ntop return via?
     if (strlen(via) == 0) {
-        strncpy(via, "0.0.0.0", 7);
+        const char* zeroAddr = "0.0.0.0";
+        memcpy(via, zeroAddr, sizeof(zeroAddr));
         // TODO: Double check
     }
     *flags = netState.config.routes[idx].flags;
