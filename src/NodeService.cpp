@@ -1107,23 +1107,16 @@ int NodeService::getFirstAssignedAddr(uint64_t net_id, unsigned int family, stru
     if (net_id == 0 || ((family != ZTS_AF_INET) && (family != ZTS_AF_INET6)) || ! addr) {
         return ZTS_ERR_ARG;
     }
+    family = family == ZTS_AF_INET ? AF_INET : AF_INET6;
     Mutex::Lock _l(_nets_m);
     std::map<uint64_t, NetworkState>::const_iterator n(_nets.find(net_id));
     if (n == _nets.end()) {
         return ZTS_ERR_NO_RESULT;
     }
     auto netState = n->second;
-    if (netState.config.assignedAddressCount == 0) {
-        return ZTS_ERR_NO_RESULT;
-    }
     for (unsigned int i = 0; i < netState.config.assignedAddressCount; i++) {
         struct sockaddr* sa = (struct sockaddr*)&(netState.config.assignedAddresses[i]);
-        // Family values may vary across platforms, thus the following
-        if (sa->sa_family == AF_INET && family == ZTS_AF_INET) {
-            native_ss_to_zts_ss(addr, &(netState.config.assignedAddresses[i]));
-            return ZTS_ERR_OK;
-        }
-        if (sa->sa_family == AF_INET6 && family == ZTS_AF_INET6) {
+        if (sa->sa_family == family) {
             native_ss_to_zts_ss(addr, &(netState.config.assignedAddresses[i]));
             return ZTS_ERR_OK;
         }
@@ -1164,6 +1157,7 @@ int NodeService::addrIsAssigned(uint64_t net_id, unsigned int family)
 
 int NodeService::networkHasRoute(uint64_t net_id, unsigned int family)
 {
+    family = family == ZTS_AF_INET ? AF_INET : AF_INET6;
     Mutex::Lock _l(_nets_m);
     std::map<uint64_t, NetworkState>::const_iterator n(_nets.find(net_id));
     if (n == _nets.end()) {
@@ -1172,10 +1166,7 @@ int NodeService::networkHasRoute(uint64_t net_id, unsigned int family)
     auto netState = n->second;
     for (unsigned int i = 0; i < netState.config.routeCount; i++) {
         struct sockaddr* sa = (struct sockaddr*)&(netState.config.routes[i].target);
-        if (sa->sa_family == AF_INET && family == ZTS_AF_INET) {
-            return true;
-        }
-        if (sa->sa_family == AF_INET6 && family == ZTS_AF_INET6) {
+        if (sa->sa_family == family) {
             return true;
         }
     }
