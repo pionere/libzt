@@ -567,8 +567,7 @@ void NodeService::syncManagedStuff(NetworkState& n)
                     memcpy(&(in4->sin_addr.s_addr), (*ip).rawIpData(), 4);
                     in4->sin_family = ZTS_AF_INET;
                     sendEventToUser(ZTS_EVENT_ADDR_REMOVED_IP4, (void*)ad);
-                }
-                if ((*ip).isV6()) {
+                } else if ((*ip).isV6()) {
                     struct sockaddr_in6* in6 = (struct sockaddr_in6*)&(ad->addr);
                     memcpy(&(in6->sin6_addr.s6_addr), (*ip).rawIpData(), 16);
                     in6->sin6_family = ZTS_AF_INET6;
@@ -590,8 +589,7 @@ void NodeService::syncManagedStuff(NetworkState& n)
                     memcpy(&(in4->sin_addr.s_addr), (*ip).rawIpData(), 4);
                     in4->sin_family = ZTS_AF_INET;
                     sendEventToUser(ZTS_EVENT_ADDR_ADDED_IP4, (void*)ad);
-                }
-                if ((*ip).isV6()) {
+                } else if ((*ip).isV6()) {
                     struct sockaddr_in6* in6 = (struct sockaddr_in6*)&(ad->addr);
                     memcpy(&(in6->sin6_addr.s6_addr), (*ip).rawIpData(), 16);
                     in6->sin6_family = ZTS_AF_INET6;
@@ -1027,8 +1025,7 @@ int NodeService::getAddrAtIdx(uint64_t net_id, unsigned int idx, char* dst, unsi
     if (sa->sa_family == AF_INET) {
         struct sockaddr_in* in4 = (struct sockaddr_in*)sa;
         inet_ntop(AF_INET, &(in4->sin_addr), dst, ZTS_INET6_ADDRSTRLEN);
-    }
-    if (sa->sa_family == AF_INET6) {
+    } else if (sa->sa_family == AF_INET6) {
         struct sockaddr_in6* in6 = (struct sockaddr_in6*)sa;
         inet_ntop(AF_INET6, &(in6->sin6_addr), dst, ZTS_INET6_ADDRSTRLEN);
     }
@@ -1060,8 +1057,7 @@ int NodeService::getRouteAtIdx(
     if (sa->sa_family == AF_INET) {
         struct sockaddr_in* in4 = (struct sockaddr_in*)sa;
         inet_ntop(AF_INET, &(in4->sin_addr), target, ZTS_INET6_ADDRSTRLEN);
-    }
-    if (sa->sa_family == AF_INET6) {
+    } else if (sa->sa_family == AF_INET6) {
         struct sockaddr_in6* in6 = (struct sockaddr_in6*)sa;
         inet_ntop(AF_INET6, &(in6->sin6_addr), target, ZTS_INET6_ADDRSTRLEN);
     }
@@ -1071,8 +1067,7 @@ int NodeService::getRouteAtIdx(
     if (sa_via->sa_family == AF_INET) {
         struct sockaddr_in* in4 = (struct sockaddr_in*)sa_via;
         inet_ntop(AF_INET, &(in4->sin_addr), via, ZTS_INET6_ADDRSTRLEN);
-    }
-    if (sa_via->sa_family == AF_INET6) {
+    } else if (sa_via->sa_family == AF_INET6) {
         struct sockaddr_in6* in6 = (struct sockaddr_in6*)sa_via;
         inet_ntop(AF_INET6, &(in6->sin6_addr), via, ZTS_INET6_ADDRSTRLEN);
     }
